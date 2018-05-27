@@ -13,7 +13,17 @@ if __name__ == '__main__':
     num_of_circle = 5
     blockers = [(0.5, 0.5)
                ,(0.5, -0.3)]
-    
+
+    # a = 0
+    # c = 0
+    # for i in range(10):
+    #     circles = bb.ball_in_box(num_of_circle, blockers)
+    #     if num_of_circle == len(circles) and val.validate(circles, blockers):
+    #         a += area_sum(circles)    
+    #         c += 1
+    # print("Average %f"%(a/c))
+
+
     circles = bb.ball_in_box(num_of_circle, blockers)
     
     if num_of_circle == len(circles) and val.validate(circles, blockers):
@@ -21,7 +31,8 @@ if __name__ == '__main__':
         print("Total area: {}".format(area))
     else:
         print("Error: no good circles.")
-
+    
+    input()
 
 
 
