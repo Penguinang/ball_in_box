@@ -86,9 +86,11 @@ def find_step_max(blockers : list, circles : list):
         circle = find_max_circle_at(x, y, blockers, circles)
     
     # 速度衰减速率
-    coll_v_rate = 0.98
+    coll_v_rate = 0.9
     # 初始速度
     velocity = vec(0.7, 0.7)
+    # 终止速度
+    velocity_end = 0.01
 
     while True:
         inters = intersect((circle[0], circle[1], circle[2]), circles, blockers)
@@ -110,7 +112,7 @@ def find_step_max(blockers : list, circles : list):
             velocity = velocity*-coll_v_rate
             velocity.mirror(norm)
         
-        if velocity.magnitude() < 0.1:
+        if velocity.magnitude() < velocity_end:
             while len(inters) > 0:
                 circle = (circle[0], circle[1], circle[2]*0.99)
                 inters = intersect((circle[0], circle[1], circle[2]), circles, blockers)
