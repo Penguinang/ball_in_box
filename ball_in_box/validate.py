@@ -50,9 +50,10 @@ def intersect(circle : tuple, circles : list, blockers : list):
         circles: circles which have been put in box
         blockers: blockers
     Return:
-        A circle in the circles which overlap with arg circle
-        # whether circle can be put in the current box
+        A list of circle in the circles which overlap with arg circle
     """
+    inters = []
+
     # Does circle intersect with the box?
     xmr = circle[0] - circle[2]
     xpr = circle[0] + circle[2]
@@ -60,13 +61,13 @@ def intersect(circle : tuple, circles : list, blockers : list):
     ypr = circle[1] + circle[2]
 
     if xmr < -1:
-        return (-1, 0, -1)
+        inters.append((1, 0, -1))
     if xpr > 1:
-        return (1, 0, -1)
+        inters.append((-1, 0, -1))
     if ymr < -1:
-        return (0, -1, -1)
+        inters.append((0, 1, -1))
     if ypr > 1:
-        return (0, 1, -1)
+        inters.append((0, -1, -1))
         
     # Does circle intersect with blockers?
     if blockers is not None and len(blockers) > 0:
@@ -77,7 +78,7 @@ def intersect(circle : tuple, circles : list, blockers : list):
             bx = block[0]
             by = block[1]
             if math.sqrt((x - bx)**2 + (y - by)**2) < r:
-                return (bx, by, 0)
+                inters.append((bx, by, 0))
 
     # Does circle intersect with other circles?
     for circle1 in circles:
@@ -88,7 +89,7 @@ def intersect(circle : tuple, circles : list, blockers : list):
         y = circle[1]
         r = circle[2]
         if math.sqrt((x1 - x)**2 + (y1 - y)**2) < (r1 + r):
-            return circle1
+            inters.append(circle1)
 
     # Intersect with nothing
-    return None
+    return inters
