@@ -2,7 +2,7 @@ import math
 from math import sin
 from math import cos
 import random
-import turtle
+import importlib
 
 from .validate import validate
 from .validate import intersect
@@ -10,10 +10,25 @@ from .validate import intersect
 __all__ = ['ball_in_box']
 
 global t
+# dynamicly load
+global turtle
 # whether display detail process
-# VIEW = True
-VIEW = False
+DISPLAY_RESULT = True
+# VIEW_DETAIL = True
+VIEW_DETAIL = False
 EPSILON = 1e-5
+
+def load_turtle():
+    global turtle
+    global DISPLAY_RESULT
+    global VIEW_DETAIL
+    try:
+        turtle = importlib.import_module("turtle")
+        DISPLAY_RESULT = DISPLAY_RESULT and True
+        VIEW_DETAIL = VIEW_DETAIL and True
+    except:
+        DISPLAY_RESULT = False
+        VIEW_DETAIL = False
 
 def ball_in_box(m=5, blockers=[(0.5, 0.5), (0.5, -0.5), (0.5, 0.3)]):
     """
@@ -23,9 +38,11 @@ def ball_in_box(m=5, blockers=[(0.5, 0.5), (0.5, -0.5), (0.5, 0.3)]):
     Return:
         This returns a list of tuple, composed of x,y of the circle and r of the circle.
     """
+
+    load_turtle()
     ###############################
     # view
-    if VIEW:
+    if VIEW_DETAIL:
         turtle.setup(400, 400)
         global t
         t = turtle.Turtle()
@@ -49,7 +66,7 @@ def ball_in_box(m=5, blockers=[(0.5, 0.5), (0.5, -0.5), (0.5, 0.3)]):
         next_circle = find_step_max(blockers, circles)
         circles.append(next_circle)
     
-    if not VIEW:
+    if DISPLAY_RESULT:
         view_circles(circles, blockers)
     return circles
 
@@ -103,8 +120,8 @@ def find_step_max(blockers : list, circles : list):
         circle = (circle[0] + velocity.x * 0.05,circle[1] + velocity.y * 0.05, circle[2])
 
         ###############################################
-        # view
-        if VIEW:
+        # view detail
+        if VIEW_DETAIL:
             if random.random() > 0.4:
                 continue
             global t
