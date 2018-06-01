@@ -13,7 +13,8 @@ global t
 # dynamicly load
 global turtle
 # whether display detail process
-DISPLAY_RESULT = True
+# DISPLAY_RESULT = True
+DISPLAY_RESULT = False
 # VIEW_DETAIL = True
 VIEW_DETAIL = False
 EPSILON = 1e-5
@@ -61,6 +62,7 @@ def ball_in_box(m=5, blockers=[(0.5, 0.5), (0.5, -0.5), (0.5, 0.3)]):
             t.circle(1)
     ###############################
 
+    
     circles = []
     while len(circles) < m:
         next_circle = find_step_max(blockers, circles)
@@ -118,7 +120,7 @@ def find_step_max(blockers : list, circles : list):
                 inters = intersect((circle[0], circle[1], circle[2]), circles, blockers)
             return circle
 
-        print("Velocity is %f"%(velocity.magnitude()))
+        # print("Velocity is %f"%(velocity.magnitude()))
         circle = (circle[0] + velocity.x * 0.05,circle[1] + velocity.y * 0.05, circle[2])
 
         ###############################################
