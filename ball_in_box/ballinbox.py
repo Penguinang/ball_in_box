@@ -83,7 +83,7 @@ def find_step_max(blockers : list, circles : list):
     max_circle = (-1, -1, 0)
     for x in range(count):
         for y in range(count):
-            circle = find_max_circle_at(x/50-1, y/50-1, blockers, circles)
+            circle = find_max_circle_at(x/count*2-1, y/count*2-1, blockers, circles)
             if circle is not None and circle[2] > max_circle[2]:
                 max_circle = circle
     
